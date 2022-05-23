@@ -1,0 +1,197 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1043\deflangfe1043{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset1 Cambria Math;}{\f2\fnil Cambria Math;}{\f3\fnil\fcharset0 Cambria Math;}{\f4\fnil Calibri;}{\f5\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\listtable 
+{\list\listhybrid
+{\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'00.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid1 }
+{\list\listhybrid
+{\listlevel\levelnfc23\leveljc0\levelstartat0{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid2 }
+{\list\listhybrid
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
+{\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'01.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc4\leveljc0\levelstartat1{\leveltext\'02\'02.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc3\leveljc0\levelstartat1{\leveltext\'02\'03.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc2\leveljc0\levelstartat1{\leveltext\'02\'04.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc1\leveljc0\levelstartat1{\leveltext\'02\'05.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'06.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc4\leveljc0\levelstartat1{\leveltext\'02\'07.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc1\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }
+{\list\listhybrid
+{\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'00.;}{\levelnumbers\'01;}\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }
+{\list\listhybrid
+{\listlevel\levelnfc23\leveljc0\levelstartat0{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid5 }}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
+{\*\generator Riched20 10.0.19041}{\*\mmathPr\mmathFont1\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\ul\b\f0\fs22\lang9 Assignment\par
+\ulnone\b0 The folder for this project is called AMRI, and the supporting functions are under MLTK/accelerated_mri.\par
+The codes that create the two datasets at this point are DS0057_PELVIS.py and DS0059_BRAIN.py, they load in different images and then use the same corrupt() function to corrupt the ground truth data. \par
+Your primary objective is to make this corrupt function work better. Read into what kinds of issues in the k-space affect the image quality most, and how to best augment them using "clean" MRI data. Based on what kind of corruptions will be included, we should also have a testing dataset for each of them so we can separately evaluate them.\ul\b\par
+Questions for meeting 1 with Attila:\ulnone\b0\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 'Based on what kind of corruptions will be included, we should also have a testing dataset for each of them so we can separately evaluate them.' So a dataset with real artefacts to see if the synthetic artefacts are similar to the real ones?\par
+{\pntext\f5\'B7\tab}Do we only use brain MRI images, or also pelvis? E.g. brain is more affected by rigid motion and less by non-rigid motion\par
+{\pntext\f5\'B7\tab}Is the current implementation of noise and bias still considered as performed in k space?\par
+{\pntext\f5\'B7\tab}Do we know the frequency and phase domain of the images?\par
+
+\pard\widctlpar\expndtw-10\kerning28\ul\b\lang2057 Image artefacts\ulnone\b0\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160\sl252\slmult1\expndtw0\kerning0 Motion artefacts  --> creates burring and ghost artifacts\par
+
+\pard\sa160\sl252\slmult1 {{\field{\*\fldinst{HYPERLINK https://i-mri.org/Synapse/Data/PDFData/1040IMRI/imri-24-196.pdf }}{\fldrslt{https://i-mri.org/Synapse/Data/PDFData/1040IMRI/imri-24-196.pdf\ul0\cf0}}}}\f0\fs22  \par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl1\fi-360\li1440\sa160\sl252\slmult1\b Gross patient motion\b0\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl1\fi-360\li1800\sa160\sl252\slmult1 Non-rigid/elastic:\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl1\fi-360\li2160\sa160\sl252\slmult1 Periodic/continuous --> ghosting\par
+{\listtext\f0 1\tab}Sudden involuntary -->  blurring\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl1\fi-360\li1800\sa160\sl252\slmult1 Rigid:\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Physiological motion\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl2\fi-360\li2160\sa160\sl252\slmult1 Respiratory motion\par
+{\listtext\f0 1\tab}Cardiac motion\par
+{\listtext\f0 2\tab}Peristaltic motion\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Motion artefacts from flow\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls1\ilvl2\fi-360\li2160\sa160\sl252\slmult1 In-flow effect \par
+{\listtext\f0 1\tab}Velocity-induced phase effects\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls2\fi-360\li720\sa160\sl252\slmult1 Inhomogeneity artefacts\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls2\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Fat\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls2\ilvl2\fi-360\li2160\sa160\sl252\slmult1 Chemical shift artefact --> center-out radial sampling\par
+{\listtext\f0 1\tab}Phase cancellation artefact\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls2\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Partial volume artefact and cross-talk\par
+{\listtext\f0 1\tab}\b Phase sampling artefacts\b0\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li1800\sa160\sl252\slmult1 Half Fourier\par
+{\pntext\f5\'B7\tab}Reduced matrix / sampling truncation\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li2160\sa160\sl252\slmult1 Replace omitted k-space data with zeros (=zero-filling) or shortenening the dimensions. We'll use zero-filling\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li2160\sa200\sl276\slmult1\lang9 Methods to sample k-space: parallel lines, echo-planar imaging, spiral, radial \par
+{\pntext\f5\'B7\tab}{{\field{\*\fldinst{HYPERLINK https://web.iit.edu/sites/web/files/departments/academic-affairs/academic-resource-center/pdfs/ARNOLD_MRI_Overview.pdf }}{\fldrslt{https://web.iit.edu/sites/web/files/departments/academic-affairs/academic-resource-center/pdfs/ARNOLD_MRI_Overview.pdf\ul0\cf0}}}}\f0\fs22  \lang2057\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls4\fi-360\li1800\sa160\sl252\slmult1 Rectangular field of view (RFOV)\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls4\fi-360\li2160\sa160\sl252\slmult1 RFOV in PE direction will introduce phase wrap = aliasing\par
+{\listtext\f0 1\tab}= Gibbs' ringing artefact. Gibbs ringing is an inevitable artifact in MR Fourier Transform (FT) imaging caused by truncating k-space data via a rectangular window.\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls4\fi-360\li2520\sa160\sl252\slmult1 {{\field{\*\fldinst{HYPERLINK https://ui.adsabs.harvard.edu/abs/2004SPIE.5368..837L/abstract#:~:text=Gibbs%20ringing%20is%20an%20inevitable%20artifact%20in%20MR,amount%20of%20ringing%20and%20accepting%20the%20concomitant%20blur }}{\fldrslt{https://ui.adsabs.harvard.edu/abs/2004SPIE.5368..837L/abstract#:~:text=Gibbs%20ringing%20is%20an%20inevitable%20artifact%20in%20MR,amount%20of%20ringing%20and%20accepting%20the%20concomitant%20blur\ul0\cf0}}}}\f0\fs22\lang1043 . \lang2057\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls4\fi-360\li1800\sa160\sl252\slmult1 Partial echo\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls4\ilvl8\fi-360\li2160\sa160\sl252\slmult1 = half Fourier but applied to frequency encoding\par
+{\listtext\f0 1\tab}This is unnecessary if we apply all methods to both phase and frequency encoding direction\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls4\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Susceptibility and metal artefacts\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls5\fi-360\li720\sa160\sl252\slmult1 Digital imaging artefacts\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls5\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Equipment artefacts\par
+
+\pard 
+{\listtext\f0\u10625?\tab}\ls5\ilvl2\fi-360\li2160\sa160\sl252\slmult1 Zipper artefacts\par
+{\listtext\f0 1\tab}Gradient nonlinearities = bias\par
+{\listtext\f0 2\tab}Herring-bone artefact = criss-cross (electromagnetic spikes). \par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li2520\sa160\sl252\slmult1 electronic equipment inside the MR procedure room, or fluctuating alternating current may produce bad data points, or a spike of noise, in the k-space. This bad data might be a single point or a few points in k-space that have a very high or low intensity compared with the intensity of the rest of k-space\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160\sl252\slmult1 Noise --> random background noise\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li1080\sa160\sl252\slmult1 Which category?\par
+{\pntext\f5\'B7\tab}Noise is white and Gaussian in k-space, but when magnitude images are measured the statistical distribution becomes Rician\par
+
+\pard\sa160\sl252\slmult1 {{\field{\*\fldinst{HYPERLINK https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf }}{\fldrslt{https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf\ul0\cf0}}}}\f0\fs22  \par
+\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1\ul\b\lang9 Articles\ulnone\b0\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 MRI k-Space Motion Artefact Augmentation: Model Robustness and Task-Specific Uncertainty\par
+{\pntext\f5\'B7\tab}Brain MRI artefact detection and correction using convolutional neural networks\par
+{\pntext\f5\'B7\tab}Automatic CNN-based detection of cardiac MR motion artefacts using k-space data augmentation and curriculum learning\par
+{\pntext\f5\'B7\tab}Body MR Imaging: Artifacts, k-Space, and Solutions\par
+{\pntext\f5\'B7\tab}A short overview of MRI artefacts\par
+{\pntext\f5\'B7\tab}Sparse MRI: The Application of Compressed Sensingfor Rapid MR Imaging\par
+{\pntext\f5\'B7\tab}Robust Uncertainty Principles: Exact Signal Reconstruction From Highly Incomplete Frequency Information\par
+{\pntext\f5\'B7\tab}Emmanuel J Cand`es, Justin Romberg, and Terence Tao. Robust uncertainty principles: Exact sig_nal reconstruction from highly incomplete frequency information. IEEE Transactions on Information Theory, 52(2), 2006.\par
+{\pntext\f5\'B7\tab}Michael Lustig, David Donoho, and John M Pauly. Sparse MRI: The Application of Compressed Sensing for Rapid MR Imaging. Magnetic Resonance in Medicine, 58(6), 2007\par
+{\pntext\f5\'B7\tab}Bias Field Correction in Magnetic Resonance Images of a Rat Brain\par
+{\pntext\f5\'B7\tab}Bias Field Correction for MRI Images\par
+{\pntext\f5\'B7\tab}Intensity Nonuniformity Correction for Brain MR Images with Known Voxel\par
+{\pntext\f5\'B7\tab}Classes\f1\u8727?\f0\lang9\par
+{\pntext\f5\'B7\tab}\f2 k-Space tutorial: an MRI educational tool for a better understanding of k-space\f0\par
+{\pntext\f5\'B7\tab}{\f2{\field{\*\fldinst{HYPERLINK https://github.com/birogeri/kspace-explorer/blob/master/kspace.py }}{\fldrslt{https://github.com/birogeri/kspace-explorer/blob/master/kspace.py\ul0\cf0}}}}\f0\fs22\par
+{\pntext\f5\'B7\tab}{\f3\lang2057{\field{\*\fldinst{HYPERLINK https://github.com/Yonsei-MILab/MRI-Motion-Artifact-Simulation-Tool/blob/main/motion_simul.m }}{\fldrslt{https://github.com/Yonsei-MILab/MRI-Motion-Artifact-Simulation-Tool/blob/main/motion_simul.m\ul0\cf0}}}}\f0\fs22\par
+{\pntext\f5\'B7\tab}{\f3\lang2057{\field{\*\fldinst{HYPERLINK https://reader.elsevier.com/reader/sd/pii/S1053811921000331?token=BD1041B0005E965B761A8F2675E679755D31F4D48145A34D7E94071D3FA5B558DDAB5F9FB1E553769D651353BA6ADC37&originRegion=eu-west-1&originCreation=20220518142556 }}{\fldrslt{https://reader.elsevier.com/reader/sd/pii/S1053811921000331?token=BD1041B0005E965B761A8F2675E679755D31F4D48145A34D7E94071D3FA5B558DDAB5F9FB1E553769D651353BA6ADC37&originRegion=eu-west-1&originCreation=20220518142556\ul0\cf0}}}}\f0\fs22\par
+{\pntext\f5\'B7\tab}{\f3\lang2057{\field{\*\fldinst{HYPERLINK https://github.com/bduffy0/motion-correction }}{\fldrslt{https://github.com/bduffy0/motion-correction\ul0\cf0}}}}\f3\fs22\lang2057   \f0\lang9\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1\ul\b Search strategy\par
+\ulnone\b0 Read into what kinds of issues in the k-space affect the image quality most:\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 k-space: k space, frequency domain, spatial frequency information, raw MRI data, Fourier space (?),  Fourier domain\par
+{\pntext\f5\'B7\tab}image quality: \par
+{\pntext\f5\'B7\tab}issues: issue* OR artefact* OR artifact*\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND ((image OR MRI) AND (quality OR resolution OR contrast OR SNR OR ''signal to noise'') AND (issue* OR artefact* OR artifact*))\par
+How to best augment them using "clean" MRI data:\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 k-space\par
+{\pntext\f5\'B7\tab}artefact\par
+{\pntext\f5\'B7\tab}augmentation: (simulat* OR augment* OR synthetic* or artificial* OR imitat* )\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1 Downsampling\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 downsampling: compressed sensing, acceleration strategy, reduced sampling technique, '\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1 Motion\par
+Noise\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND ((image OR MRI) AND (noise OR SNR OR ''signal to noise'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* )\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1  For a transverse head we would commonly chose left-right for the phase-encode direction.\par
+
+\pard\widctlpar\sa160\sl252\slmult1\ul\b\lang2057 Noise\par
+{\ulnone\b0{\field{\*\fldinst{HYPERLINK https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3097694/ }}{\fldrslt{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3097694/\ul0\cf0}}}}\ulnone\b0\f0\fs22\par
+The SNR is a criterion of image quality. This parameter describes the relative contributions to a detected signal of the true signal and random superimposed background noise signals.\par
+{{\field{\*\fldinst{HYPERLINK https://onlinelibrary.wiley.com/doi/full/10.1002/mrm.10220?sid=nlm%3Apubmed }}{\fldrslt{https://onlinelibrary.wiley.com/doi/full/10.1002/mrm.10220?sid=nlm%3Apubmed\ul0\cf0}}}}\f0\fs22\par
+and the noise is \ldblquote white\rdblquote\f4\emdash spread evenly over the entire frequency range\par
+{{\field{\*\fldinst{HYPERLINK https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf }}{\fldrslt{https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf\ul0\cf0}}}}\f4\fs22\par
+\ul\b\f0 Motion\par
+Sampling\par
+Equipment\par
+
+\pard\nowidctlpar\sa200\sl276\slmult1\ulnone\b0\lang9\par
+}
+ 
