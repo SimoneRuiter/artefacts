@@ -20,18 +20,16 @@
 {\listlevel\levelnfc4\leveljc0\levelstartat1{\leveltext\'02\'07.;}{\levelnumbers\'01;}\jclisttab\tx0}
 {\listlevel\levelnfc23\leveljc1\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }
 {\list\listhybrid
-{\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'00.;}{\levelnumbers\'01;}\jclisttab\tx0}
-{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }
-{\list\listhybrid
 {\listlevel\levelnfc23\leveljc0\levelstartat0{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
 {\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
-{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid5 }}
-{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
+{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
 {\*\generator Riched20 10.0.19041}{\*\mmathPr\mmathFont1\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
 \pard\sa200\sl276\slmult1\ul\b\f0\fs22\lang9 Assignment\par
 \ulnone\b0 The folder for this project is called AMRI, and the supporting functions are under MLTK/accelerated_mri.\par
 The codes that create the two datasets at this point are DS0057_PELVIS.py and DS0059_BRAIN.py, they load in different images and then use the same corrupt() function to corrupt the ground truth data. \par
-Your primary objective is to make this corrupt function work better. Read into what kinds of issues in the k-space affect the image quality most, and how to best augment them using "clean" MRI data. Based on what kind of corruptions will be included, we should also have a testing dataset for each of them so we can separately evaluate them.\ul\b\par
+Your primary objective is to make this corrupt function work better. Read into what kinds of issues in the k-space affect the image quality most, and how to best augment them using "clean" MRI data. Based on what kind of corruptions will be included, we should also have a testing dataset for each of them so we can separately evaluate them.\par
+report: {{\field{\*\fldinst{HYPERLINK https://www.overleaf.com/read/hxddbgcpfgrj }}{\fldrslt{https://www.overleaf.com/read/hxddbgcpfgrj\ul0\cf0}}}}\f0\fs22  \ul\b\par
 Questions for meeting 1 with Attila:\ulnone\b0\par
 
 \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 'Based on what kind of corruptions will be included, we should also have a testing dataset for each of them so we can separately evaluate them.' So a dataset with real artefacts to see if the synthetic artefacts are similar to the real ones?\par
@@ -39,9 +37,13 @@ Questions for meeting 1 with Attila:\ulnone\b0\par
 {\pntext\f5\'B7\tab}Is the current implementation of noise and bias still considered as performed in k space?\par
 {\pntext\f5\'B7\tab}Do we know the frequency and phase domain of the images?\par
 
+\pard\sa200\sl276\slmult1\ul\b Questions for meeting 2 with Attila:\ulnone\b0\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa200\sl276\slmult1 How did they create the noise free dataset? Is the original dataset still available and can we use it for testing?\par
+
 \pard\widctlpar\expndtw-10\kerning28\ul\b\lang2057 Image artefacts\ulnone\b0\par
 
-\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160\sl252\slmult1\expndtw0\kerning0 Motion artefacts  --> creates burring and ghost artifacts\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\fi-360\li720\sa160\sl252\slmult1\expndtw0\kerning0 Motion artefacts  --> creates burring (range of frequencies), ghosting (low frequencies) and ringing (high frequencies)\par
 
 \pard\sa160\sl252\slmult1 {{\field{\*\fldinst{HYPERLINK https://i-mri.org/Synapse/Data/PDFData/1040IMRI/imri-24-196.pdf }}{\fldrslt{https://i-mri.org/Synapse/Data/PDFData/1040IMRI/imri-24-196.pdf\ul0\cf0}}}}\f0\fs22  \par
 
@@ -113,16 +115,16 @@ Questions for meeting 1 with Attila:\ulnone\b0\par
 {\listtext\f0 1\tab}This is unnecessary if we apply all methods to both phase and frequency encoding direction\par
 
 \pard 
-{\listtext\f0\u10625?\tab}\ls4\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Susceptibility and metal artefacts\par
+{\listtext\f0 1.\tab}\ls4\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Susceptibility and metal artefacts\par
 
 \pard 
-{\listtext\f0\u10625?\tab}\ls5\fi-360\li720\sa160\sl252\slmult1 Digital imaging artefacts\par
+{\listtext\f0\u10625?\tab}\ls4\fi-360\li720\sa160\sl252\slmult1 Digital imaging artefacts\par
 
 \pard 
-{\listtext\f0\u10625?\tab}\ls5\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Equipment artefacts\par
+{\listtext\f0\u10625?\tab}\ls4\ilvl1\fi-360\li1440\sa160\sl252\slmult1 Equipment artefacts\par
 
 \pard 
-{\listtext\f0\u10625?\tab}\ls5\ilvl2\fi-360\li2160\sa160\sl252\slmult1 Zipper artefacts\par
+{\listtext\f0\u10625?\tab}\ls4\ilvl2\fi-360\li2160\sa160\sl252\slmult1 Zipper artefacts\par
 {\listtext\f0 1\tab}Gradient nonlinearities = bias\par
 {\listtext\f0 2\tab}Herring-bone artefact = criss-cross (electromagnetic spikes). \par
 
@@ -138,8 +140,7 @@ Questions for meeting 1 with Attila:\ulnone\b0\par
 
 \pard\nowidctlpar\sa200\sl276\slmult1\ul\b\lang9 Articles\ulnone\b0\par
 
-\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 MRI k-Space Motion Artefact Augmentation: Model Robustness and Task-Specific Uncertainty\par
-{\pntext\f5\'B7\tab}Brain MRI artefact detection and correction using convolutional neural networks\par
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 Brain MRI artefact detection and correction using convolutional neural networks\par
 {\pntext\f5\'B7\tab}Automatic CNN-based detection of cardiac MR motion artefacts using k-space data augmentation and curriculum learning\par
 {\pntext\f5\'B7\tab}Body MR Imaging: Artifacts, k-Space, and Solutions\par
 {\pntext\f5\'B7\tab}A short overview of MRI artefacts\par
@@ -189,7 +190,20 @@ The SNR is a criterion of image quality. This parameter describes the relative c
 and the noise is \ldblquote white\rdblquote\f4\emdash spread evenly over the entire frequency range\par
 {{\field{\*\fldinst{HYPERLINK https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf }}{\fldrslt{https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf\ul0\cf0}}}}\f4\fs22\par
 \ul\b\f0 Motion\par
-Sampling\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1\ulnone\b0\lang9 MRI k-Space Motion Artefact Augmentation: Model Robustness and Task-Specific Uncertainty\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li1080\sa200\sl276\slmult1 {{\field{\*\fldinst{HYPERLINK http://proceedings.mlr.press/v102/shaw19a/shaw19a.pdf }}{\fldrslt{http://proceedings.mlr.press/v102/shaw19a/shaw19a.pdf\ul0\cf0}}}}\ul\b\f0\fs22\lang2057\par
+{\pntext\f5\'B7\tab}\ulnone\b0\lang9 Resampled head movements in image space are combined to form a composite k-space. \ul\b\lang2057\par
+{\pntext\f5\'B7\tab}\ulnone\b0\lang9 no code available\ul\b\lang2057\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1\ulnone\b0\lang9 Retrospective correction of motion artifact affected structural MRI images using deep learning of simulated motion\ul\b\lang2057\par
+
+\pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li1080\sa200\sl276\slmult1 {\ulnone\b0\lang9{\field{\*\fldinst{HYPERLINK https://openreview.net/pdf?id=H1hWfZnjM }}{\fldrslt{https://openreview.net/pdf?id=H1hWfZnjM\ul0\cf0}}}}\f0\fs22\par
+{\pntext\f5\'B7\tab}\ulnone\b0 Artifacts were simulated by applying random linear phase shifts to n random phase-encoding lines in k-space, with n sampled from a uniform distribution between 0 adn 60.\ul\b\par
+{\pntext\f5\'B7\tab}\ulnone\b0\lang9 no code available\ul\b\lang2057\par
+
+\pard\widctlpar\sa160\sl252\slmult1 Sampling\par
 Equipment\par
 
 \pard\nowidctlpar\sa200\sl276\slmult1\ulnone\b0\lang9\par
