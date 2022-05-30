@@ -18,12 +18,8 @@
 {\listlevel\levelnfc1\leveljc0\levelstartat1{\leveltext\'02\'05.;}{\levelnumbers\'01;}\jclisttab\tx0}
 {\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'06.;}{\levelnumbers\'01;}\jclisttab\tx0}
 {\listlevel\levelnfc4\leveljc0\levelstartat1{\leveltext\'02\'07.;}{\levelnumbers\'01;}\jclisttab\tx0}
-{\listlevel\levelnfc23\leveljc1\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }
-{\list\listhybrid
-{\listlevel\levelnfc23\leveljc0\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}
-{\listlevel\levelnfc0\leveljc0\levelstartat1{\leveltext\'02\'01.;}{\levelnumbers\'01;}\jclisttab\tx0}
-{\listlevel\levelnfc4\leveljc0\levelstartat1{\leveltext\'02\'02.;}{\levelnumbers\'01;}\jclisttab\tx0}\listid4 }}
-{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
+{\listlevel\levelnfc23\leveljc1\levelstartat1{\leveltext\'01\'B7;}{\levelnumbers;}\f5\jclisttab\tx0}\listid4 }}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}}
 {\*\generator Riched20 10.0.19041}{\*\mmathPr\mmathFont1\mdispDef1\mwrapIndent1440 }\viewkind4\uc1 
 \pard\sa200\sl276\slmult1\ul\b\f0\fs22\lang9 Assignment\par
 \ulnone\b0 The folder for this project is called AMRI, and the supporting functions are under MLTK/accelerated_mri.\par
@@ -164,6 +160,8 @@ The SNR is a criterion of image quality. This parameter describes the relative c
 {{\field{\*\fldinst{HYPERLINK https://onlinelibrary.wiley.com/doi/full/10.1002/mrm.10220?sid=nlm%3Apubmed }}{\fldrslt{https://onlinelibrary.wiley.com/doi/full/10.1002/mrm.10220?sid=nlm%3Apubmed\ul0\cf0}}}}\f0\fs22\par
 and the noise is \ldblquote white\rdblquote\f2\emdash spread evenly over the entire frequency range\par
 {{\field{\*\fldinst{HYPERLINK https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf }}{\fldrslt{https://mriquestions.com/uploads/3/4/5/7/34572113/noise_cardenas-blanco-conceptsinmagnetic-2008-32a-409.pdf\ul0\cf0}}}}\f2\fs22\par
+\f0 I. Rabanillo (2018); Exact Calculation of Noise Maps and g-Factor in GRAPPA Using a k-Space Analysis. --> for parallel imaging \f2\par
+{{\field{\*\fldinst{HYPERLINK https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8063348 }}{\fldrslt{https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8063348\ul0\cf0}}}}\f2\fs22\par
 \ul\b\f0 Motion\par
 \ulnone\b0\lang9 For a transverse head we would commonly chose left-right for the phase-encode direction.\ul\b\lang2057\par
 
@@ -201,6 +199,7 @@ and the noise is \ldblquote white\rdblquote\f2\emdash spread evenly over the ent
 {\pntext\f5\'B7\tab}Robust Uncertainty Principles: Exact Signal Reconstruction From Highly Incomplete Frequency Information\par
 {\pntext\f5\'B7\tab}Emmanuel J Cand`es, Justin Romberg, and Terence Tao. Robust uncertainty principles: Exact sig_nal reconstruction from highly incomplete frequency information. IEEE Transactions on Information Theory, 52(2), 2006.\par
 {\pntext\f5\'B7\tab}Michael Lustig, David Donoho, and John M Pauly. Sparse MRI: The Application of Compressed Sensing for Rapid MR Imaging. Magnetic Resonance in Medicine, 58(6), 2007\ul\b\lang2057\par
+{\pntext\f5\'B7\tab}{\ulnone\b0\lang9{\field{\*\fldinst{HYPERLINK https://github.com/facebookresearch/fastMRI/tree/main/fastmri/data }}{\fldrslt{https://github.com/facebookresearch/fastMRI/tree/main/fastmri/data\ul0\cf0}}}}\f0\fs22\par
 
 \pard\widctlpar\sa160\sl252\slmult1 Equipment\par
 
@@ -220,30 +219,30 @@ How to best augment them using "clean" MRI data:\par
 
 \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 k-space\par
 {\pntext\f5\'B7\tab}artefact\par
-{\pntext\f5\'B7\tab}augmentation: (simulat* OR augment* OR synthetic* or artificial* OR imitat* )\par
+{\pntext\f5\'B7\tab}augmentation: (simulat* OR augment* OR synthetic* or artificial* OR imitat*  OR corrupt*)\par
 
-\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (issue* OR artefact* OR artifact* OR problem* OR difficult*) AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* )\par
+\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (issue* OR artefact* OR artifact* OR problem* OR difficult*) AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* OR corrupt*)\par
 Downsampling\par
 
 \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 k-space\par
-{\pntext\f5\'B7\tab}downsampling: compressed sensing, acceleration strategy, reduced sampling technique, subsampling, undersampling\par
+{\pntext\f5\'B7\tab}downsampling: compressed sensing, acceleration strategy, reduced sampling technique, subsampling, undersampling, low resolution --> super-resolution / high resolution,  parallel imaging, \par
 {\pntext\f5\'B7\tab}augmentation\par
 
-\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* ) AND (downsampl* OR ''down-sampl''* OR  subsampl* OR ''sub-sampl''* OR undersampl* OR ''under-sampl''* OR ''reduced sampl''* OR compress* OR accelerat*)\par
+\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* ) AND (downsampl* OR ''down-sampl''* OR  subsampl* OR ''sub-sampl''* OR undersampl* OR ''under-sampl''* OR ''reduced sampl''* OR compress* OR accelerat* OR corrupt*)\par
 Motion\par
 
 \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 k-space\par
 {\pntext\f5\'B7\tab}motion: motion, movement, moving\par
 {\pntext\f5\'B7\tab}augmentation\par
 
-\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* ) AND (motion OR movement* OR moving)\par
+\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* OR corrupt*) AND (motion OR movement* OR moving)\par
 Noise\par
 
 \pard{\pntext\f5\'B7\tab}{\*\pn\pnlvlblt\pnf5\pnindent0{\pntxtb\'B7}}\nowidctlpar\fi-360\li720\sa200\sl276\slmult1 k-space\par
 {\pntext\f5\'B7\tab}noise: noise, SNR, signal to noise\par
 {\pntext\f5\'B7\tab}augmentation\par
 
-\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (noise OR SNR OR ''signal to noise'' OR ''signal-to-noise'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* )\par
+\pard\nowidctlpar\sa200\sl276\slmult1 --> (''k-space'' OR ''k space'' OR ''frequency domain'' OR (''raw data'' AND MRI) OR ''raw MRI data'') AND (noise OR SNR OR ''signal to noise'' OR ''signal-to-noise'') AND (simulat* OR augment* OR synthetic* or artificial* OR imitat* OR corrupt*)\par
  \ul\b\lang2057\par
 \ulnone\b0\lang9\par
 }
