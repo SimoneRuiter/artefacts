@@ -196,7 +196,7 @@ def GetFields(image):
     grid_z = srf((x, y), mesh_type='structured')
     grid_z = dct2(grid_z)
     
-    bias_rng = np.random.uniform(0.20, 1.00)
+    bias_rng = np.random.uniform(0.20, 0.8)
     grid_z = np.interp(grid_z, (grid_z.min(), grid_z.max()),
                        (1 - bias_rng / 2, 1 + bias_rng / 2))
     
