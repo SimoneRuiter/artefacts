@@ -20,13 +20,13 @@ import matplotlib.pyplot as plt
 import logging
 # from typeguard import typechecked
 import matplotlib.pyplot as plt
-from skimage.metrics import structural_similarity as ssim
+#from skimage.metrics import structural_similarity as ssim
 # import cv2
 from matplotlib import cm
 import matplotlib
 # matplotlib.use('Agg')
 from scipy import ndimage
-from sewar.full_ref import uqi, vifp
+#from sewar.full_ref import uqi, vifp
 
 def radial_mask(thr):
     from skimage.draw import line
