@@ -218,7 +218,7 @@ def corrupt_image(image, case):
         kspace = np.where(mask, kspace, (0 + 0j))
         
     elif case == "motion_rigid":
-        motion_type = "rigid", "periodic"
+        motion_type = "rigid"
         if (motion_type == "rigid"):
             n_movements = np.random.randint(1, 6)
             ang_std = 0.6
