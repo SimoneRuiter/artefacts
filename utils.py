@@ -12,42 +12,19 @@ Copyright (c) 2017, Tommy Löfstedt. All rights reserved.
 """
 __all__ = ["running_mean", "mse", "save_state", "Timer", "ReflectPadding2D", "MyCustomWeightShifter"]
 # from MLTK.accelerated_mri.utils import radial_mask, frequency_mask, transform_image_to_kspace, transform_kspace_to_image, compare_k, corrupt
-import tensorflow
 import numpy as np
 from numpy.fft import fftshift, ifftshift, fftn, ifftn
 import time
-import tensorflow
-from tensorflow.keras import backend as K
 import matplotlib
 import matplotlib.pyplot as plt
-import tensorflow.signal
-import gc
-from tensorflow.keras.layers import Layer
-from tensorflow.python.keras import backend as K
-from tensorflow.python.keras.engine import base_layer_utils
-from tensorflow.python.keras.engine.base_layer import Layer
-from tensorflow.python.keras.utils import tf_utils
-from tensorflow.python.ops import array_ops
-from tensorflow.python.ops import math_ops
-from tensorflow.python.ops import nn
-from tensorflow.python.util.tf_export import keras_export
-from tensorflow.keras.constraints import Constraint
 import logging
-import tensorflow as tf
 # from typeguard import typechecked
 import matplotlib.pyplot as plt
-import tensorflow as tf
 from skimage.metrics import structural_similarity as ssim
 # import cv2
 from matplotlib import cm
-from tensorflow.keras.models import Model
 import matplotlib
 # matplotlib.use('Agg')
-from tensorflow.keras.layers import Lambda, Activation, Input, MaxPooling2D, Conv2D, BatchNormalization, Dropout, UpSampling2D, Concatenate, SpatialDropout2D
-from tensorflow.keras.models import Model
-
-from tensorflow.keras.layers import Lambda, Input, MaxPooling2D, Conv2D, BatchNormalization, Dropout, UpSampling2D, Concatenate, SpatialDropout2D
-from tensorflow.keras.models import Model
 from scipy import ndimage
 from sewar.full_ref import uqi, vifp
 
