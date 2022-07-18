@@ -107,27 +107,51 @@ def rigid_motion(image, pe_direction, n_movements, ang_std, trans_std):
     # normalize the image from 0 to 1
     image = (image - np.min(image)) / (np.max(image) - np.min(image))
     
-    # locations of the movements
+    # phase encoding direction
     if (pe_direction == "LR"):
         grid_size = image.shape[1]
     elif (pe_direction == "AP"):
         grid_size = image.shape[0]
-    locs = np.sort(np.append(np.random.permutation(grid_size)[:(2*n_movements)], (0, grid_size)))
-
+    
+    # locations of the movements
+    corrupt_pct_range = np.random.uniform(0, 0.3*(100/(100-7))) #little over 30 %, because centre part will be masked
+    corrupt_lines = np.maximum(n_movements, round(corrupt_pct_range*grid_size))
+    clean_lines = grid_size - corrupt_lines
+    locs_corrupt = np.sort(np.append(np.random.permutation(corrupt_lines)[:(n_movements)], (0, corrupt_lines)))
+    locs_clean = np.sort(np.append(np.random.permutation(clean_lines)[:(n_movements)], (0, clean_lines)))
+    locs = [0]
+    seg = 0
+    for i in range(n_movements):
+        seg += locs_clean[i+1] - locs_clean[i]
+        locs.append(seg)
+        seg += locs_corrupt[i+1] - locs_corrupt[i]
+        locs.append(seg)
+    
     # rotation and translation parameters
     ang = np.random.normal(0, ang_std, n_movements)
     trans_x = np.random.normal(0, trans_std, n_movements)
     trans_y = np.random.normal(0, trans_std, n_movements)
 
     # combine kspaces
-    kspace = transform_image_to_kspace(image)
+    kspace_clean = transform_image_to_kspace(image)
+    kspace = np.copy(kspace_clean)
     for i in range(n_movements):
-        img_i = combining_transforms(image, sum(ang[:(i+1)]), sum(trans_x[:(i+1)]), sum(trans_y[:(i+1)]))
+        img_i = combining_transforms(image, ang[i], trans_x[i], trans_y[i])
         kspace_i = transform_image_to_kspace(img_i)
         if (pe_direction == "LR"):
-            kspace[:, locs[2*i+1]:locs[2*i+2]] = kspace_i[:, locs[2*i+1]:locs[2*i+2]]
+            kspace[:, locs[i*2+1]:locs[i*2+2]] = kspace_i[:, locs[i*2+1]:locs[i*2+2]]
         elif (pe_direction == "AP"):
-            kspace[locs[2*i+1]:locs[2*i+2], :] = kspace_i[locs[2*i+1]:locs[2*i+2], :]
+            kspace[locs[i*2+1]:locs[i*2+2], :] = kspace_i[locs[i*2+1]:locs[i*2+2], :]
+    
+    # mask centre
+    pct = 0.07 # percentage center k-space without motion
+    num_low_frequencies = round(pct*grid_size) # lines center k-space without motion
+    begin = round(grid_size/2-num_low_frequencies/2)
+    end = round(grid_size/2+num_low_frequencies/2)
+    if (pe_direction == "LR"):
+        kspace[:, begin:end] = kspace_clean[:, begin:end]
+    elif (pe_direction == "AP"):
+        kspace[begin:end, :] = kspace_clean[begin:end, :]
     
     return kspace
 
@@ -220,22 +244,14 @@ def corrupt_image(image, case):
     elif case == "motion_rigid":
         motion_type = "rigid"
         if (motion_type == "rigid"):
-            n_movements = np.random.randint(1, 6)
-            ang_std = 0.6
-            trans_std = 1.1
-            pe_direction = random.choice(["LR", "AP"])
-            kspace = rigid_motion(image, pe_direction, n_movements, ang_std, trans_std)
+            kspace = rigid_motion(image, random.choice(["LR", "AP"]), np.random.randint(1,9), 3, 10)
         elif (motion_type == "periodic"):
             kspace = periodic_motion(kspace)
             
     elif case == "motion":
         motion_type = random.choice(["rigid", "periodic"])
         if (motion_type == "rigid"):
-            n_movements = np.random.randint(1, 6)
-            ang_std = 0.6
-            trans_std = 1.1
-            pe_direction = random.choice(["LR", "AP"])
-            kspace = rigid_motion(image, pe_direction, n_movements, ang_std, trans_std)
+            kspace = rigid_motion(image, random.choice(["LR", "AP"]), np.random.randint(1,9), 3, 10)
         elif (motion_type == "periodic"):
             kspace = periodic_motion(kspace)
             
