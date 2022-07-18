@@ -240,6 +240,7 @@ def corrupt_image(image, case):
             kspace = periodic_motion(kspace)
             
     elif case == "bias":
+        image = (image - np.min(image)) / (np.max(image) - np.min(image))
         bias = GetFields(image)
         img = np.multiply(image, bias)
         kspace = transform_image_to_kspace(img)
