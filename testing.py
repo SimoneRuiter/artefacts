@@ -100,8 +100,21 @@ def GetFields(image, bias_rng):
     
     return grid_z
 
+# signal_to_noise = fraction of noise to be added, between 0 and 10 (with 0 being worst and 10 best)
+def noise(image, signal_to_noise):
+    kspace = transform_image_to_kspace(image)
+    
+    mean_signal = np.mean(np.abs(kspace))
+    std_noise = mean_signal / 10**(signal_to_noise / 20)
+    noise = np.random.normal(0, std_noise, size=np.shape(kspace)) + 1j*np.random.normal(0, std_noise, size=np.shape(kspace))
+    kspace += noise
+    
+    img = transform_kspace_to_image(kspace)
+    img = (img - np.mean(img)) / np.std(img)
+    return img
+
 # fraction = fraction of noise to be added, either 0 or 0.05
-def noise(image, fraction):
+def noise_for_N4ITK(image, fraction):
     kspace = transform_image_to_kspace(image)
     
     mag_re = fraction*np.std(np.real(kspace))
@@ -164,13 +177,13 @@ def bias(image, bias_rng):
     img = (img - np.mean(img)) / np.std(img)
     return img
 
-def corrupt_image(image, case, fraction, acceleration, corrupt_pct_range, delta, ky0, bias_rng):
+def corrupt_image(image, case, signal_to_noise, acceleration, corrupt_pct_range, delta, ky0, bias_rng):
     kspace = transform_image_to_kspace(image)
     
     if case == "noise":
-        mag_re = fraction*np.std(np.real(kspace))
-        mag_im = fraction*np.std(np.imag(kspace))
-        noise = np.random.normal(0, mag_re, size=np.shape(kspace)) + 1j*np.random.normal(0, mag_im, size=np.shape(kspace))
+        mean_signal = np.mean(np.abs(kspace))
+        std_noise = mean_signal / 10**(signal_to_noise / 20)
+        noise = np.random.normal(0, std_noise, size=np.shape(kspace)) + 1j*np.random.normal(0, std_noise, size=np.shape(kspace))
         kspace += noise
     
     elif case == "downsample":
