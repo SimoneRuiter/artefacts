@@ -27,12 +27,15 @@ def cartesian_mask(factor, PE_direction, distribution):
         prob = (num_cols / acceleration - num_low_frequencies) / (num_cols - num_low_frequencies)
         accel_samples = np.random.uniform(size=num_cols) < prob
     
-    if (PE_direction == "LR"):
-        mask[:, round((num_cols - num_low_frequencies - 2) / 2):round((num_cols + num_low_frequencies - 2) / 2)] = True
-        mask[:, accel_samples] = True
-    elif (PE_direction == "AP"):
-        mask[round((num_cols - num_low_frequencies - 2) / 2):round((num_cols + num_low_frequencies - 2) / 2), :] = True
-        mask[accel_samples, :] = True
+    if (distribution == "constrained"):
+        mask[round((num_cols - num_low_frequencies - 2) / 2):round((num_cols + num_low_frequencies - 2) / 2), round((num_cols - num_low_frequencies - 2) / 2):round((num_cols + num_low_frequencies - 2) / 2)] = True
+    else:
+        if (PE_direction == "LR"):
+            mask[:, round((num_cols - num_low_frequencies - 2) / 2):round((num_cols + num_low_frequencies - 2) / 2)] = True
+            mask[:, accel_samples] = True
+        elif (PE_direction == "AP"):
+            mask[round((num_cols - num_low_frequencies - 2) / 2):round((num_cols + num_low_frequencies - 2) / 2), :] = True
+            mask[accel_samples, :] = True
  
     return mask
 
@@ -114,7 +117,7 @@ def rigid_motion(image, pe_direction, n_movements, ang_std, trans_std):
         grid_size = image.shape[0]
     
     # locations of the movements
-    corrupt_pct_range = np.random.uniform(0, 0.3*(100/(100-7))) #little over 30 %, because centre part will be masked
+    corrupt_pct_range = np.random.uniform(0.3, 0.8) * (100/(100-7))#little over 30 %, because centre part will be masked
     corrupt_lines = np.maximum(n_movements, round(corrupt_pct_range*grid_size))
     clean_lines = grid_size - corrupt_lines
     locs_corrupt = np.sort(np.append(np.random.permutation(corrupt_lines)[:(n_movements)], (0, corrupt_lines)))
@@ -162,9 +165,9 @@ def periodic_motion(kspace):
 
     # parameters
     alpha = np.random.uniform(0.1, 5) # respiratory frequency
-    delta = np.random.uniform(0, 20) # shift along PE direction
+    delta = np.random.uniform(20, 120) # shift along PE direction
     beta = np.random.uniform(0, np.pi/4) # phase
-    ky0 = np.random.uniform(np.pi/10, np.pi/2) # center K-space lines without phase shift errors
+    ky0 = np.random.uniform(np.pi/10, np.pi/8) # center K-space lines without phase shift errors
     
     # phase error outside of center
     phase_error = ky*delta*np.sin(alpha*ky + beta)
@@ -220,7 +223,7 @@ def GetFields(image):
     grid_z = srf((x, y), mesh_type='structured')
     grid_z = dct2(grid_z)
     
-    bias_rng = np.random.uniform(0.20, 0.8)
+    bias_rng = np.random.uniform(0.20, 2.0)
     grid_z = np.interp(grid_z, (grid_z.min(), grid_z.max()),
                        (1 - bias_rng / 2, 1 + bias_rng / 2))
     
@@ -231,27 +234,27 @@ def corrupt_image(image, case):
     kspace = transform_image_to_kspace(image)
     
     if case == "noise":
-        signal_to_noise = np.random.uniform(0, 10)
+        signal_to_noise = np.random.uniform(-12, 10)
         mean_signal = np.mean(np.abs(kspace))
         std_noise = mean_signal / 10**(signal_to_noise / 20)
         noise = np.random.normal(0, std_noise, size=np.shape(kspace)) + 1j*np.random.normal(0, std_noise, size=np.shape(kspace))
         kspace += noise
     
     elif case == "downsample":
-        mask = cartesian_mask(random.choice([(2, 0.16), (3, 0.12), (4, 0.08)]), random.choice(["LR", "AP"]), random.choice(["uniform", "random"]))  
+        mask = cartesian_mask(random.choice([(2, 0.16), (3, 0.12), (4, 0.08), (8, 0.04)]), random.choice(["LR", "AP"]), random.choice(["uniform", "random", "constrained"]))   
         kspace = np.where(mask, kspace, (0 + 0j))
         
     elif case == "motion_rigid":
         motion_type = "rigid"
         if (motion_type == "rigid"):
-            kspace = rigid_motion(image, random.choice(["LR", "AP"]), np.random.randint(1,9), 3, 10)
+            kspace = rigid_motion(image, random.choice(["LR", "AP"]), np.random.randint(4,24), 12, 30)
         elif (motion_type == "periodic"):
             kspace = periodic_motion(kspace)
             
     elif case == "motion":
         motion_type = random.choice(["rigid", "periodic"])
         if (motion_type == "rigid"):
-            kspace = rigid_motion(image, random.choice(["LR", "AP"]), np.random.randint(1,9), 3, 10)
+            kspace = rigid_motion(image, random.choice(["LR", "AP"]), np.random.randint(4,24), 12, 30)
         elif (motion_type == "periodic"):
             kspace = periodic_motion(kspace)
             
